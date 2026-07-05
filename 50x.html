@@ -1,0 +1,79 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Server Maintenance - MeozLabs</title>
+    <link rel="icon" href="meoz-lab-icon.jpg" type="image/png">
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;600;800&display=swap" rel="stylesheet">
+    <style>
+        :root { --bg-dark: #1a1625; --bg-accent: #2b273f; --primary: #2dd4bf; --secondary: #8b5cf6; --text-main: #f8fafc; --text-muted: #94a3b8; }
+        body { margin: 0; padding: 0; font-family: 'Inter', sans-serif; background-color: #0d0b13; color: var(--text-main); height: 100vh; display: flex; flex-direction: column; align-items: center; justify-content: center; overflow: hidden; position: relative; }
+        
+        /* Immersive Background */
+        .bg-image { position: absolute; top: 0; left: 0; width: 100vw; height: 100vh; background: url('meoz-lab.jpg') center/cover no-repeat; opacity: 0.12; filter: blur(10px); z-index: 0; transform: scale(1.05); animation: bg-breathe 25s infinite alternate ease-in-out; }
+        .bg-overlay { position: absolute; top: 0; left: 0; width: 100vw; height: 100vh; background: radial-gradient(circle at 50% 50%, rgba(26, 22, 37, 0.4) 0%, var(--bg-dark) 100%); z-index: 0; pointer-events: none; }
+        @keyframes bg-breathe { 0% { transform: scale(1.05); } 100% { transform: scale(1.15); } }
+
+        .orb { position: absolute; border-radius: 50%; filter: blur(80px); opacity: 0.5; animation: float 10s infinite alternate ease-in-out; z-index: 1; pointer-events: none; }
+        .orb-1 { width: 300px; height: 300px; background: rgba(45, 212, 191, 0.2); top: -50px; left: -50px; }
+        .orb-2 { width: 400px; height: 400px; background: rgba(139, 92, 246, 0.15); bottom: -100px; right: -100px; animation-delay: -5s; }
+        @keyframes float { 0% { transform: translate(0, 0) scale(1); } 100% { transform: translate(50px, 50px) scale(1.1); } }
+
+        .container { position: relative; z-index: 2; background: rgba(34, 31, 48, 0.65); backdrop-filter: blur(25px); -webkit-backdrop-filter: blur(25px); border: 1px solid rgba(255, 255, 255, 0.08); border-radius: 30px; padding: 50px 40px; max-width: 480px; width: 85%; text-align: center; box-shadow: 0 30px 60px -15px rgba(0, 0, 0, 0.7); animation: slideUp 0.8s cubic-bezier(0.16, 1, 0.3, 1) forwards; opacity: 0; transform: translateY(40px); }
+        @keyframes slideUp { to { opacity: 1; transform: translateY(0); } }
+
+        /* AI Core Animation with Image */
+        .core-wrapper { position: relative; width: 220px; height: 220px; margin: 0 auto 35px; display: flex; align-items: center; justify-content: center; border-radius: 50%; }
+        .core-ring { position: absolute; border-radius: 50%; top: 50%; left: 50%; transform: translate(-50%, -50%); pointer-events: none; }
+        .core-ring-1 { width: 220px; height: 220px; border: 2px dashed rgba(45, 212, 191, 0.6); animation: spin 12s linear infinite; }
+        .core-ring-2 { width: 190px; height: 190px; border: 3px solid rgba(139, 92, 246, 0.8); border-top-color: transparent; border-bottom-color: transparent; animation: spin-reverse 6s linear infinite; }
+        .core-ring-3 { width: 170px; height: 170px; border: 2px solid rgba(45, 212, 191, 0.5); box-shadow: 0 0 20px rgba(45, 212, 191, 0.5), inset 0 0 15px rgba(45, 212, 191, 0.4); animation: pulse-ring 2s ease-in-out infinite alternate; }
+        
+        .core-image { position: absolute; width: 150px; height: 150px; border-radius: 50%; object-fit: cover; opacity: 1; z-index: 10; border: 3px solid rgba(255, 255, 255, 0.1); box-shadow: 0 0 25px rgba(45, 212, 191, 0.3); }
+        
+        @keyframes spin { 100% { transform: translate(-50%, -50%) rotate(360deg); } }
+        @keyframes spin-reverse { 100% { transform: translate(-50%, -50%) rotate(-360deg); } }
+        @keyframes pulse-ring { 100% { transform: translate(-50%, -50%) scale(1.08); } }
+
+        h1 { font-size: 28px; font-weight: 800; margin: 0 0 15px; background: linear-gradient(135deg, #fff 0%, #a5b4fc 100%); -webkit-background-clip: text; -webkit-text-fill-color: transparent; letter-spacing: -0.5px; }
+        p { font-size: 15px; line-height: 1.6; color: var(--text-muted); margin: 0 0 30px; font-weight: 300; }
+
+        .branding { margin-top: 40px; position: relative; z-index: 2; display: flex; align-items: center; gap: 8px; opacity: 0; animation: fadeIn 1s ease forwards 0.5s; }
+        @keyframes fadeIn { to { opacity: 1; } }
+        .branding-text { color: var(--text-muted); font-size: 13px; font-weight: 400; }
+        .branding-logo { background: linear-gradient(135deg, var(--secondary) 0%, var(--primary) 100%); -webkit-background-clip: text; -webkit-text-fill-color: transparent; font-weight: 800; font-size: 15px; letter-spacing: 0.5px; }
+        
+        .status-badge { display: inline-flex; align-items: center; gap: 10px; background: rgba(255, 255, 255, 0.05); padding: 10px 20px; border-radius: 20px; font-size: 14px; font-weight: 500; color: var(--primary); border: 1px solid rgba(45, 212, 191, 0.2); box-shadow: 0 5px 15px rgba(0,0,0,0.2); }
+        .dot { width: 8px; height: 8px; background-color: var(--primary); border-radius: 50%; box-shadow: 0 0 10px var(--primary); animation: blink 1.5s infinite ease-in-out; }
+        @keyframes blink { 0%, 100% { opacity: 1; } 50% { opacity: 0.3; } }
+    </style>
+</head>
+<body>
+    <div class="bg-image"></div>
+    <div class="bg-overlay"></div>
+
+    <div class="orb orb-1"></div>
+    <div class="orb orb-2"></div>
+
+    <div class="container">
+        <div class="core-wrapper">
+            <div class="core-ring core-ring-1"></div>
+            <div class="core-ring core-ring-2"></div>
+            <div class="core-ring core-ring-3"></div>
+            <img src="meoz-lab.jpg" class="core-image" alt="System Core">
+        </div>
+        <h1>System Upgrading</h1>
+        <p>The <strong>MeozLabs Infrastructure</strong> is currently undergoing scheduled maintenance and upgrades. All services will be back online shortly. Thank you for your patience!</p>
+        <div class="status-badge">
+            <span class="dot"></span>
+            Maintenance in progress
+        </div>
+    </div>
+
+    <div class="branding">
+        <span class="branding-text">Running on</span>
+        <span class="branding-logo">MeozLabs Server</span>
+    </div>
+</body>
+</html>
