@@ -32,6 +32,8 @@
   --ease-out: cubic-bezier(0.16, 1, 0.3, 1);
 
   --nav-height: 64px;
+  /* Clearance above anchor targets: 64px nav + 16px gap (read by SmoothScrollService) */
+  --anchor-offset: 80px;
   --content-width: 1120px;
 }
 
