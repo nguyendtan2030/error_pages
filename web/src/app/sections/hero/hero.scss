@@ -4,7 +4,7 @@
 
 .hero {
   display: grid;
-  grid-template-columns: 1.1fr 1fr;
+  grid-template-columns: 1fr 1.05fr;
   align-items: center;
   gap: 56px;
   min-height: 100vh;
@@ -161,8 +161,13 @@ h1 {
   }
 }
 
-/* Logo, rings and orbit */
+/* Logo, rings and orbit
+   Everything scales from --r, the orbit radius. The badges ride 36px outside the
+   outer ring, and r is capped by the room to the viewport edge, measured for the
+   widest badge (Software Engineering) and a classic 16px scrollbar, so a badge
+   never pushes the page sideways at any point of its turn. */
 .hero-visual {
+  --r: min(244px, calc(50vw - 412px));
   display: flex;
   justify-content: center;
 }
@@ -171,7 +176,7 @@ h1 {
   position: relative;
   display: grid;
   place-items: center;
-  width: min(300px, 62vw);
+  width: calc(2 * (var(--r) - 72px));
   aspect-ratio: 1;
 }
 
@@ -182,13 +187,13 @@ h1 {
 }
 
 .ring-1 {
-  inset: -14px;
+  inset: -18px;
   border: 2px dashed rgba(var(--teal-rgb), 0.4);
   animation: spin 30s linear infinite;
 }
 
 .ring-2 {
-  inset: -30px;
+  inset: -36px;
   border: 3px solid transparent;
   border-top-color: rgba(var(--violet-rgb), 0.6);
   border-bottom-color: rgba(var(--violet-rgb), 0.6);
@@ -223,49 +228,54 @@ source {
   }
 }
 
+// The orbit turns by animating an angle, not by rotating a container: a rotated
+// container makes the browser count the rotated bounding box of all four badges
+// as page overflow (a sideways scroll), while upright badges overflow only where
+// they really are. Without @property support the badges simply stay put.
+@property --spin {
+  syntax: '<angle>';
+  inherits: true;
+  initial-value: 0deg;
+}
+
 .orbit {
-  --r: 205px;
-  --orbit-duration: 48s;
   position: absolute;
   inset: 50% auto auto 50%;
   z-index: 2;
   width: 0;
   height: 0;
-  animation: orbit-spin var(--orbit-duration) linear infinite;
+  animation: orbit-spin 48s linear infinite;
 }
 
 .orbit-slot {
+  --a: calc(var(--angle) + var(--spin));
   position: absolute;
   left: 0;
   top: 0;
-  // Place on the ring, then undo the angle so the counter-spin starts upright
-  transform: rotate(var(--angle)) translateX(var(--r)) rotate(calc(var(--angle) * -1));
+  width: max-content;
+  // Out to the ring, back upright, then centred on that point.
+  transform: rotate(var(--a)) translateX(var(--r)) rotate(calc(var(--a) * -1)) translate(-50%, -50%);
 }
 
 .orbit-counter {
   display: block;
-  translate: -50% -50%;
-  animation: orbit-spin var(--orbit-duration) linear infinite reverse;
 }
 
-.hero-visual:hover {
-  .orbit,
-  .orbit-counter {
-    animation-play-state: paused;
-  }
+.hero-visual:hover .orbit {
+  animation-play-state: paused;
 }
 
 @keyframes orbit-spin {
   to {
-    rotate: 360deg;
+    --spin: 360deg;
   }
 }
 
 .orbit-badge {
   display: inline-flex;
   align-items: center;
-  gap: 8px;
-  padding: 6px 12px 6px 6px;
+  gap: 10px;
+  padding: 7px 18px 7px 7px;
   border-radius: 999px;
   border: 1px solid var(--line-strong);
   background: rgba(22, 19, 32, 0.92);
@@ -275,16 +285,16 @@ source {
   .icon {
     display: grid;
     place-items: center;
-    width: 26px;
-    height: 26px;
+    width: 32px;
+    height: 32px;
     border-radius: 50%;
     background: rgba(var(--teal-rgb), 0.12);
     color: var(--teal);
   }
 
   svg {
-    width: 15px;
-    height: 15px;
+    width: 17px;
+    height: 17px;
     fill: none;
     stroke: currentColor;
     stroke-width: 2;
@@ -294,7 +304,8 @@ source {
 
   .label {
     font-family: var(--font-mono);
-    font-size: 0.72rem;
+    font-size: 0.85rem;
+    font-weight: 500;
     color: var(--text);
   }
 }
@@ -304,7 +315,8 @@ source {
   color: var(--violet-text);
 }
 
-@media (max-width: 960px) {
+// Below 1240px the two columns leave the orbit too little room: stack the hero, visual first.
+@media (max-width: 1239px) {
   .hero {
     grid-template-columns: 1fr;
     gap: 72px;
@@ -319,8 +331,10 @@ source {
   }
 
   .hero-visual {
+    --r: min(252px, calc(50vw - 136px));
     order: -1;
-    padding-top: 24px;
+    // A badge reaches 96px past the logo box (r + half its height - logo radius).
+    padding: 96px 0 48px;
   }
 
   .ctas {
@@ -328,37 +342,49 @@ source {
   }
 }
 
-// On phones the badges sit just outside the rings and shrink so the widest one fits at 320px.
+// On phones a labelled badge cannot clear 320px at 0 and 180 degrees, so the badges
+// become icon dots riding the outer ring. The labels are decorative (the orbit is
+// aria-hidden) and the lead says the same.
 @media (max-width: 600px) {
   .hero {
     gap: 64px;
     padding-top: calc(var(--nav-height) + 40px);
   }
 
+  .hero-visual {
+    --r: calc(min(100px, 26vw) + 34px);
+    // The icon dots reach 53px past the logo box.
+    padding: 56px 0 8px;
+  }
+
   .logo-wrap {
     width: min(200px, 52vw);
   }
 
-  .orbit {
-    --r: 130px;
+  .ring-1 {
+    inset: -14px;
+  }
+
+  .ring-2 {
+    inset: -30px;
   }
 
   .orbit-badge {
-    padding: 4px 10px 4px 4px;
-    gap: 6px;
+    padding: 3px;
+    gap: 0;
 
     .icon {
-      width: 20px;
-      height: 20px;
+      width: 30px;
+      height: 30px;
     }
 
     svg {
-      width: 12px;
-      height: 12px;
+      width: 16px;
+      height: 16px;
     }
 
     .label {
-      font-size: 0.62rem;
+      display: none;
     }
   }
 
