@@ -10,7 +10,7 @@ Bản tĩnh đã giải quyết được chuyện ảnh nặng và lỗi tải, 
 
 ## 2. Mục tiêu (giữ từ trước)
 
-1. Giới thiệu **lab cá nhân** kèm **thương hiệu cá nhân** của Tan Nguyen. Đúng 4 phần: navbar, hero, lab, contact. Không có mục About hay Projects.
+1. Giữ mục tiêu gốc của MeozLabs (commit `8381533`): một **creative technology hub**, nói ở ngôi "we", "crafting innovative digital solutions, exploring bold new ideas, and pushing the boundaries of web development and software engineering". Đây cũng là trang mà các sản phẩm trỏ về qua dòng "Cung cấp bởi MeozLabs" hoặc "run by MeozLabs". Thương hiệu cá nhân của Tan Nguyen xuất hiện ở vai trò **founder**. Đúng 4 phần: navbar, hero, what we do (kèm dải "Built by Meoz Labs"), contact. Không có mục About hay Projects riêng. Hạ tầng chỉ được nhắc như một ý nhỏ.
 2. Tải nhanh, ảnh không lỗi: ảnh WebP nhỏ, đường dẫn tuyệt đối, ngân sách dung lượng ở mục 7.
 3. Không công khai dịch vụ nội bộ (vault, grafana, npm, immich…), IP hay cổng.
 4. Mobile tốt, tôn trọng `prefers-reduced-motion`, tắt JavaScript vẫn đọc được toàn bộ nội dung.
@@ -65,35 +65,38 @@ error_pages/
 - **Icon:** SVG inline, không dùng Font Awesome, để nhẹ hơn và giữ CSP chặt.
 - **Nền:** orb dùng gradient tròn, chỉ animate `transform` và `opacity`; không có `filter: blur` nào chuyển động.
 
-### Các phần trang
+### Các phần trang (nội dung đã được duyệt, viết bằng tiếng Anh, giữ nguyên câu chữ)
 1. **Navbar** (`components/navbar`)
-   - Dính ở trên, nền kính mờ. Logo MeozLabs và các liên kết Lab · About me · Contact.
-   - Dưới 600px chỉ còn logo và Contact.
+   - Dính ở trên, nền kính mờ. Logo MeozLabs và các liên kết **What we do** (`#what-we-do`) · **Founder** (`https://duytan.meozlabs.com/`) · nút **Get in touch** (`#contact`).
+   - Dưới 600px chỉ còn logo và Get in touch.
    - Có link "Skip to content".
-2. **Hero** (`sections/hero`)
-   - Badge "The personal lab of Tan Nguyen".
-   - `h1` "Meoz Labs" chạy hiệu ứng split-text.
-   - Vai trò "Full-Stack & DevOps Engineer · Ho Chi Minh City", và một câu giới thiệu lab.
-   - Hai nút có hiệu ứng magnetic: *Explore the lab* (`#lab`) và *About me* (`https://duytan.meozlabs.com/`).
-   - Hình bên phải:
-     - Logo mèo trong vòng xoay.
-     - Quỹ đạo 4 badge: Docker, Nginx, Cloudflare, GitHub Actions. Badge được xoay ngược lại để chữ luôn đứng thẳng, giống portfolio.
-3. **Lab** (`sections/lab`)
-   - Tiêu đề "Built, shipped and run at home".
-   - Sơ đồ luồng request, mô tả chung, không có tên host hay cổng:
-     `Visitor → Cloudflare edge → Reverse proxy (TLS) → App containers`, cùng nhánh `git push → CI build → Image registry → deploy`.
-     Dùng SVG và HTML; đường nối được vẽ dần bằng ScrollTrigger.
-   - Bốn thẻ có hiệu ứng spotlight: Self-hosted server · Containers everywhere · Cloudflare at the edge · CI/CD to production. Nội dung giữ như bản tĩnh.
-4. **Contact** (`sections/contact`)
-   - Lời mời "Let's build something".
-   - Ba nút: email `nguyendtan2030@gmail.com`, GitHub `github.com/nguyendtan2030`, *Portfolio & CV*.
+2. **Hero** (`sections/hero`, `id="top"`)
+   - Badge: "Innovation Hub".
+   - `h1`: "Welcome to Meoz Labs", chạy hiệu ứng split-text.
+   - Lead: "We are a creative technology hub dedicated to crafting innovative digital solutions, exploring bold new ideas, and pushing the boundaries of web development and software engineering."
+   - Hai nút có hiệu ứng magnetic: *Explore what we do* (`#what-we-do`) và *Get in touch* (`#contact`).
+   - Dòng founder: "Founded by **Tan Nguyen**, Full-Stack & DevOps Engineer →", link sang `https://duytan.meozlabs.com/`.
+   - Hình bên phải: logo mèo trong vòng xoay, quanh là quỹ đạo 4 badge: **Web Development**, **Software Engineering**, **Digital Solutions**, **Bold Ideas**. Badge được xoay ngược lại để chữ luôn đứng thẳng, giống portfolio.
+3. **What we do** (`sections/what-we-do`, `id="what-we-do"`)
+   - Kicker "What we do". `h2`: "From bold ideas to products people use". Lead: "Every product at Meoz Labs starts as an experiment and grows into a solution that runs in production."
+   - Sơ đồ quy trình `Idea → Prototype → Build → Ship → Run`, dùng HTML và SVG; đường nối được vẽ dần bằng ScrollTrigger.
+   - Bốn thẻ có hiệu ứng spotlight:
+     - **Crafting digital solutions**: "We design and build end-to-end products, from scalable backend services to modern web interfaces."
+     - **Exploring bold ideas**: "Ideas start as small experiments: we prototype fast, learn from real use and keep what works."
+     - **Pushing web development**: "Modern frameworks, thoughtful UX and fast, accessible experiences on every screen."
+     - **Engineering for production**: "Clean architecture, automated delivery and our own infrastructure keep every product running."
+   - Dải **"Built by Meoz Labs"**, đúng hai sản phẩm theo thứ tự này (không có Easup Charity Fund):
+     - **PracticeCSharp**: "A LeetCode-style platform for C#, LINQ and EF Core, graded in isolated containers." Nhãn "Live", link `https://practice.meozlabs.com`.
+     - **Easup Agri**: "GIS farm mapping and QR traceability for the farmers of Ea Sup." Nhãn "In development", không có link.
+4. **Contact** (`sections/contact`, `id="contact"`)
+   - Kicker "Get in touch". `h2`: "Have an idea? Let's build it together."
+   - Đoạn: "Meoz Labs is founded and run by Tan Nguyen, a Full-Stack & DevOps engineer in Ho Chi Minh City."
+   - Ba nút: email `nguyendtan2030@gmail.com`, *GitHub* (`https://github.com/nguyendtan2030`), *Founder's portfolio* (`https://duytan.meozlabs.com/`).
 5. **Footer** (`components/site-footer`): "© {năm} MeozLabs · Built with Angular & GSAP".
 
-Nội dung trang viết bằng tiếng Anh.
-
 ### SEO và meta
-- Thẻ `title` và `description` giữ như bản tĩnh. Thêm Open Graph (ảnh `/images/meoz-lab-560.jpg`), `theme-color`, favicon 32px và apple-touch-icon.
-- Thêm JSON-LD kiểu `WebSite`, trong đó `author` là `Person` Tan Nguyen, kèm `sameAs` trỏ tới portfolio và GitHub.
+- `title`: "Meoz Labs - Innovation & Technology". `description`: "Meoz Labs is a creative technology hub crafting innovative digital solutions, exploring bold new ideas and pushing the boundaries of web development and software engineering."
+- JSON-LD là `Organization` MeozLabs (url `https://www.meozlabs.com/`, logo, `founder` là `Person` Tan Nguyen, `sameAs` portfolio và GitHub), thay cho `WebSite` ở dòng bên dưới. Thêm Open Graph (ảnh `/images/meoz-lab-560.jpg`), `theme-color`, favicon 32px và apple-touch-icon.
 - Thêm `robots.txt` và `sitemap.xml` có một URL.
 
 ## 5. Container và nginx
@@ -164,7 +167,7 @@ Container chỉ có cổng nội bộ, nên script không đụng tới NPM.
   - Các directive motion: không chạy gì khi ở server, không chạy khi giảm chuyển động.
   - Navbar có đúng các liên kết.
   - Hero render đúng tiêu đề và hai nút.
-  - Lab render đủ 4 thẻ và sơ đồ.
+  - What we do render đủ 4 thẻ, sơ đồ 5 bước và đúng hai sản phẩm (không có Easup Charity Fund).
   - Contact có link `mailto:` và hai link ngoài.
   - Footer có chữ "Built with Angular & GSAP".
 - **Build:** `npm run build` phải prerender `/` thành công và không vượt budget.
