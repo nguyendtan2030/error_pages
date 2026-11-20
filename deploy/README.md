@@ -94,8 +94,9 @@ container's 404).
 - **Back to the old static page:** restore host #7 from the backup:
   `cp $B/database.sqlite /home/meoz/npm/data/database.sqlite` and
   `cp $B/7.conf /home/meoz/npm/data/nginx/proxy_host/7.conf`, then
-  `docker restart nginx-proxy-manager`. The old root `index.html` is in
-  `$B/error_pages/`.
+  `docker restart nginx-proxy-manager`. The old root `index.html` was removed from the
+  repo after the cutover, so also `cp $B/error_pages/index.html /home/meoz/error_pages/`.
+  The cutover backup is `/home/meoz/backups/meozlabs-20261120-091036`.
 
 ## Local run
 
