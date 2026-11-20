@@ -1,0 +1,70 @@
+:host {
+  position: fixed;
+  inset: 0;
+  z-index: -1;
+  overflow: hidden;
+  pointer-events: none;
+}
+
+// A 64px image blurred once: the blur is static, never animated.
+.bg-image {
+  position: absolute;
+  inset: -24px;
+  background: url('/images/meoz-lab-bg.webp') center / cover no-repeat;
+  opacity: 0.12;
+  filter: blur(12px);
+}
+
+.bg-overlay {
+  position: absolute;
+  inset: 0;
+  background: radial-gradient(circle at 50% 35%, rgba(26, 22, 37, 0.3) 0%, #1a1625 100%);
+}
+
+// Faint grid like the portfolio's, fading out towards the bottom.
+.bg-grid {
+  position: absolute;
+  inset: 0;
+  background-image:
+    linear-gradient(rgba(255, 255, 255, 0.025) 1px, transparent 1px),
+    linear-gradient(90deg, rgba(255, 255, 255, 0.025) 1px, transparent 1px);
+  background-size: 64px 64px;
+  mask-image: linear-gradient(to bottom, #000 0%, transparent 70%);
+}
+
+// Soft orbs are radial gradients, so moving them never re-runs a blur filter.
+.orb {
+  position: absolute;
+  border-radius: 50%;
+  will-change: transform;
+  animation: drift 18s ease-in-out infinite alternate;
+}
+
+.orb-1 {
+  width: 640px;
+  height: 640px;
+  top: -180px;
+  left: -220px;
+  background: radial-gradient(circle, rgba(var(--teal-rgb), 0.16) 0%, rgba(var(--teal-rgb), 0) 65%);
+}
+
+.orb-2 {
+  width: 780px;
+  height: 780px;
+  right: -280px;
+  bottom: -280px;
+  background: radial-gradient(circle, rgba(var(--violet-rgb), 0.18) 0%, rgba(var(--violet-rgb), 0) 65%);
+  animation-delay: -9s;
+}
+
+@keyframes drift {
+  to {
+    transform: translate3d(60px, -50px, 0) scale(1.08);
+  }
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .orb {
+    animation: none;
+  }
+}

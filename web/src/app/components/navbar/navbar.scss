@@ -1,0 +1,109 @@
+:host {
+  display: block;
+}
+
+// A floating pill like the portfolio's: 12px from the top, 52px tall (64px of clearance).
+.nav-shell {
+  position: fixed;
+  inset: 12px 0 auto;
+  z-index: 100;
+  display: flex;
+  justify-content: center;
+  padding: 0 16px;
+  pointer-events: none;
+}
+
+.nav-pill {
+  position: relative;
+  display: flex;
+  align-items: center;
+  gap: 8px;
+  width: 100%;
+  max-width: var(--content-width);
+  height: 52px;
+  padding: 6px 6px 6px 10px;
+  border-radius: 999px;
+  border: 1px solid var(--line);
+  pointer-events: auto;
+
+  // Blur on a pseudo-element keeps the pill itself out of a filtered stacking context.
+  &::before {
+    content: '';
+    position: absolute;
+    inset: 0;
+    z-index: -1;
+    border-radius: inherit;
+    background: rgba(13, 11, 19, 0.7);
+    backdrop-filter: blur(16px) saturate(140%);
+    -webkit-backdrop-filter: blur(16px) saturate(140%);
+  }
+}
+
+.brand {
+  display: flex;
+  align-items: center;
+  gap: 10px;
+  padding-right: 8px;
+  font-family: var(--font-display);
+  font-size: 1.05rem;
+  font-weight: 700;
+  text-decoration: none;
+  white-space: nowrap;
+
+  img {
+    border-radius: 8px;
+  }
+}
+
+.nav-links {
+  display: flex;
+  gap: 2px;
+  margin: 0 0 0 auto;
+  padding: 0;
+  list-style: none;
+
+  a {
+    display: inline-flex;
+    align-items: center;
+    min-height: 40px;
+    padding: 0 14px;
+    border-radius: 999px;
+    color: var(--muted);
+    font-size: 0.92rem;
+    font-weight: 600;
+    text-decoration: none;
+    transition:
+      color 0.2s ease,
+      background-color 0.2s ease;
+
+    &:hover {
+      color: var(--text);
+      background: var(--surface-2);
+    }
+  }
+}
+
+.talk {
+  display: inline-flex;
+  align-items: center;
+  min-height: 40px;
+  padding: 0 18px;
+  border-radius: 999px;
+  background: var(--gradient);
+  color: #fff;
+  font-size: 0.92rem;
+  font-weight: 600;
+  text-decoration: none;
+  white-space: nowrap;
+  box-shadow: 0 8px 20px -8px rgba(var(--teal-rgb), 0.5);
+}
+
+@media (max-width: 600px) {
+  .nav-links {
+    display: none;
+  }
+
+  .talk {
+    margin-left: auto;
+  }
+}
