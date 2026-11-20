@@ -1,0 +1,5 @@
+# Local run only: docker compose -f compose.yaml -f compose.local.yaml up -d --build
+services:
+  meozlabs-web:
+    ports: !override
+      - "127.0.0.1:4300:80"
