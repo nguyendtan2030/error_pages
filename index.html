@@ -3,125 +3,310 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Meoz Labs - Innovation & Technology</title>
-    <link rel="icon" href="meoz-lab-icon.jpg" type="image/png">
-    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;600;800&display=swap" rel="stylesheet">
+    <title>Meoz Labs - The personal lab of Tan Nguyen</title>
+    <meta name="description" content="Meoz Labs is the personal lab of Tan Nguyen, a Full-Stack and DevOps engineer: a self-hosted home server where products are built, shipped and run.">
+    <meta name="theme-color" content="#0d0b13">
+    <meta property="og:type" content="website">
+    <meta property="og:url" content="https://www.meozlabs.com/">
+    <meta property="og:title" content="Meoz Labs - The personal lab of Tan Nguyen">
+    <meta property="og:description" content="A self-hosted home lab where products are built, shipped and run.">
+    <meta property="og:image" content="https://www.meozlabs.com/_meoz/meoz-lab-560.jpg">
+    <link rel="icon" href="/_meoz/favicon-32.png" type="image/png" sizes="32x32">
+    <link rel="apple-touch-icon" href="/_meoz/apple-touch-icon.png">
+    <link rel="preload" as="image" href="/_meoz/meoz-lab-560.webp" type="image/webp" fetchpriority="high">
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;600;800&display=swap" rel="stylesheet">
     <style>
-        :root { --bg-dark: #1a1625; --bg-accent: #2b273f; --primary: #2dd4bf; --secondary: #8b5cf6; --text-main: #f8fafc; --text-muted: #94a3b8; }
-        
-        body { margin: 0; padding: 0; font-family: 'Inter', sans-serif; background-color: #0d0b13; color: var(--text-main); min-height: 100vh; display: flex; flex-direction: column; align-items: center; justify-content: center; overflow-x: hidden; position: relative; }
-        
-        /* Background Image with Parallax & Blur Effect */
-        .bg-image { position: fixed; top: 0; left: 0; width: 100vw; height: 100vh; background: url('meoz-lab2.jpg') center/cover no-repeat; opacity: 0.12; filter: blur(10px); z-index: 0; transform: scale(1.05); animation: bg-breathe 30s infinite alternate ease-in-out; }
-        .bg-overlay { position: fixed; top: 0; left: 0; width: 100vw; height: 100vh; background: radial-gradient(circle at 50% 50%, rgba(26, 22, 37, 0.3) 0%, var(--bg-dark) 100%); z-index: 0; pointer-events: none; }
-        @keyframes bg-breathe { 0% { transform: scale(1.05); } 100% { transform: scale(1.15); } }
+        :root {
+            --bg-dark: #1a1625; --bg-page: #0d0b13; --surface: rgba(22, 19, 32, 0.72); --surface-line: rgba(255, 255, 255, 0.08);
+            --primary: #2dd4bf; --secondary: #8b5cf6; --secondary-text: #a78bfa;
+            --text-main: #f8fafc; --text-muted: #a3b0c2;
+            --ease-out: cubic-bezier(0.16, 1, 0.3, 1);
+            --gradient: linear-gradient(135deg, var(--secondary) 0%, var(--primary) 100%);
+        }
+        *, *::before, *::after { box-sizing: border-box; }
+        html { scroll-behavior: smooth; }
+        body { margin: 0; font-family: 'Inter', system-ui, -apple-system, 'Segoe UI', sans-serif; background-color: var(--bg-page); color: var(--text-main); line-height: 1.6; overflow-x: hidden; -webkit-font-smoothing: antialiased; }
+        a { color: inherit; }
+        .skip-link { position: absolute; left: 16px; top: -48px; z-index: 100; padding: 10px 16px; border-radius: 10px; background: var(--primary); color: #0d0b13; font-weight: 600; text-decoration: none; }
+        .skip-link:focus { top: 12px; }
+        :focus-visible { outline: 2px solid var(--primary); outline-offset: 3px; }
 
-        .orb { position: absolute; border-radius: 50%; filter: blur(90px); opacity: 0.5; animation: float 15s infinite alternate ease-in-out; z-index: 1; pointer-events: none; }
-        .orb-1 { width: 350px; height: 350px; background: rgba(45, 212, 191, 0.2); top: 5%; left: 0%; }
-        .orb-2 { width: 450px; height: 450px; background: rgba(139, 92, 246, 0.2); bottom: 0%; right: 0%; animation-delay: -7s; }
-        @keyframes float { 0% { transform: translate(0, 0) scale(1); } 100% { transform: translate(50px, -50px) scale(1.1); } }
+        /* Backdrop: tiny pre-scaled image blurred once, plus soft gradient orbs */
+        .bg-image { position: fixed; inset: -24px; background: url('/_meoz/meoz-lab-bg.webp') center/cover no-repeat; opacity: 0.12; filter: blur(12px); z-index: -3; pointer-events: none; }
+        .bg-overlay { position: fixed; inset: 0; background: radial-gradient(circle at 50% 40%, rgba(26, 22, 37, 0.3) 0%, var(--bg-dark) 100%); z-index: -2; pointer-events: none; }
+        .orb { position: fixed; border-radius: 50%; z-index: -1; pointer-events: none; will-change: transform; animation: float 18s ease-in-out infinite alternate; }
+        .orb-1 { width: 620px; height: 620px; top: -160px; left: -200px; background: radial-gradient(circle, rgba(45, 212, 191, 0.16) 0%, rgba(45, 212, 191, 0) 65%); }
+        .orb-2 { width: 760px; height: 760px; bottom: -260px; right: -260px; background: radial-gradient(circle, rgba(139, 92, 246, 0.18) 0%, rgba(139, 92, 246, 0) 65%); animation-delay: -9s; }
+        @keyframes float { to { transform: translate3d(60px, -50px, 0) scale(1.08); } }
 
-        /* Split Layout Container */
-        .container { position: relative; z-index: 2; background: rgba(22, 19, 32, 0.65); backdrop-filter: blur(25px); -webkit-backdrop-filter: blur(25px); border: 1px solid rgba(255, 255, 255, 0.08); border-radius: 32px; padding: 60px 70px; max-width: 950px; width: 85%; display: flex; flex-direction: row; align-items: center; gap: 60px; box-shadow: 0 40px 80px -20px rgba(0, 0, 0, 0.8), inset 0 0 20px rgba(255,255,255,0.02); animation: slideUp 1s cubic-bezier(0.16, 1, 0.3, 1) forwards; opacity: 0; transform: translateY(40px); }
-        @keyframes slideUp { to { opacity: 1; transform: translateY(0); } }
+        .wrap { width: 100%; max-width: 1120px; margin: 0 auto; padding: 0 24px; }
+        .gradient-text { background: var(--gradient); -webkit-background-clip: text; background-clip: text; -webkit-text-fill-color: transparent; }
 
-        .visual-section { flex: 1; display: flex; justify-content: center; align-items: center; position: relative; }
-        .content-section { flex: 1.2; text-align: left; }
+        /* Navigation */
+        .nav { position: sticky; top: 0; z-index: 50; background: rgba(13, 11, 19, 0.6); backdrop-filter: blur(14px); -webkit-backdrop-filter: blur(14px); border-bottom: 1px solid var(--surface-line); }
+        .nav .wrap { display: flex; align-items: center; justify-content: space-between; height: 64px; }
+        .brand { display: inline-flex; align-items: center; gap: 10px; text-decoration: none; font-weight: 800; font-size: 17px; letter-spacing: 0.3px; }
+        .brand img { width: 30px; height: 30px; border-radius: 8px; }
+        .nav-links { display: flex; align-items: center; gap: 8px; list-style: none; margin: 0; padding: 0; }
+        .nav-links a { display: inline-flex; align-items: center; min-height: 40px; padding: 0 14px; border-radius: 10px; color: var(--text-muted); font-size: 15px; font-weight: 600; text-decoration: none; transition: color 0.2s ease, background-color 0.2s ease; }
+        .nav-links a:hover { color: var(--text-main); background: rgba(255, 255, 255, 0.05); }
+        .nav-links .nav-cta { color: var(--text-main); border: 1px solid rgba(45, 212, 191, 0.35); }
+        .nav-links .nav-cta:hover { border-color: var(--primary); background: rgba(45, 212, 191, 0.08); }
 
-        /* Profile Image Animation */
-        .profile-wrapper { position: relative; width: 400px; height: 400px; display: flex; align-items: center; justify-content: center; }
-        .profile-ring { position: absolute; top: 0; left: 0; width: 100%; height: 100%; border-radius: 50%; border: 2px dashed rgba(45, 212, 191, 0.4); animation: spin 25s linear infinite; }
-        .profile-ring-2 { position: absolute; top: -15px; left: -15px; width: calc(100% + 30px); height: calc(100% + 30px); border-radius: 50%; border: 3px solid transparent; border-top-color: rgba(139, 92, 246, 0.6); border-bottom-color: rgba(139, 92, 246, 0.6); animation: spin-reverse 15s linear infinite; }
-        .profile-ring-3 { position: absolute; top: -30px; left: -30px; width: calc(100% + 60px); height: calc(100% + 60px); border-radius: 50%; border: 1px solid rgba(255, 255, 255, 0.05); box-shadow: inset 0 0 30px rgba(45, 212, 191, 0.1); animation: pulse-ring 4s infinite alternate; }
-        
-        .profile-img { width: 280px; height: 280px; border-radius: 24px; object-fit: cover; border: 4px solid rgba(255, 255, 255, 0.15); box-shadow: 0 0 50px rgba(45, 212, 191, 0.25); z-index: 10; animation: gentle-pulse 4s ease-in-out infinite alternate; }
-        
-        @keyframes spin { 100% { transform: rotate(360deg); } }
-        @keyframes spin-reverse { 100% { transform: rotate(-360deg); } }
-        @keyframes pulse-ring { 0% { transform: scale(0.95); opacity: 0.5; } 100% { transform: scale(1.02); opacity: 1; } }
-        @keyframes gentle-pulse { 0% { transform: scale(1); box-shadow: 0 0 30px rgba(45, 212, 191, 0.2); } 100% { transform: scale(1.02); box-shadow: 0 0 60px rgba(45, 212, 191, 0.4); border-color: rgba(45, 212, 191, 0.4); } }
+        /* Hero */
+        .hero { min-height: calc(100vh - 64px); min-height: calc(100dvh - 64px); display: flex; align-items: center; padding: 56px 0 72px; }
+        .hero .wrap { display: grid; grid-template-columns: 1.15fr 1fr; align-items: center; gap: 56px; }
+        .hero-copy > * { animation: rise 0.8s var(--ease-out) both; }
+        .hero-copy > :nth-child(2) { animation-delay: 0.08s; }
+        .hero-copy > :nth-child(3) { animation-delay: 0.16s; }
+        .hero-copy > :nth-child(4) { animation-delay: 0.24s; }
+        .hero-copy > :nth-child(5) { animation-delay: 0.32s; }
+        @keyframes rise { from { opacity: 0; transform: translateY(16px); } }
 
-        /* Typography & Content */
-        h2 { font-size: 14px; font-weight: 800; color: var(--secondary); margin: 0 0 10px; letter-spacing: 4px; text-transform: uppercase; }
-        h1 { font-size: 48px; font-weight: 800; margin: 0 0 20px; color: #fff; letter-spacing: -1.5px; line-height: 1.1; }
-        .highlight { background: linear-gradient(135deg, var(--secondary) 0%, var(--primary) 100%); -webkit-background-clip: text; -webkit-text-fill-color: transparent; }
-        p { font-size: 16px; line-height: 1.8; color: var(--text-muted); margin: 0 0 40px; font-weight: 400; }
-        
-        /* Sleek Contact Button */
-        .contact-wrapper { display: inline-flex; align-items: center; background: rgba(255, 255, 255, 0.03); border: 1px solid rgba(45, 212, 191, 0.2); border-radius: 50px; padding: 8px 25px 8px 8px; transition: all 0.3s cubic-bezier(0.175, 0.885, 0.32, 1.275); text-decoration: none; position: relative; overflow: hidden; }
-        .contact-wrapper::before { content: ''; position: absolute; top: 0; left: -100%; width: 100%; height: 100%; background: linear-gradient(90deg, transparent, rgba(255,255,255,0.05), transparent); transition: transform 0.5s; z-index: 1; }
-        
-        .contact-icon { width: 46px; height: 46px; background: linear-gradient(135deg, var(--primary) 0%, var(--secondary) 100%); border-radius: 50%; display: flex; align-items: center; justify-content: center; margin-right: 15px; box-shadow: 0 0 20px rgba(45, 212, 191, 0.4); transition: transform 0.3s ease; z-index: 2; position: relative; }
-        .contact-icon svg { width: 20px; height: 20px; fill: #fff; }
-        
-        .contact-text { display: flex; flex-direction: column; z-index: 2; position: relative; }
-        .contact-label { font-size: 11px; text-transform: uppercase; letter-spacing: 1.5px; color: var(--text-muted); margin-bottom: 2px; font-weight: 600; }
-        .contact-email { font-size: 16px; font-weight: 600; color: #fff; transition: color 0.3s; }
-        
-        .contact-wrapper:hover { background: rgba(45, 212, 191, 0.08); border-color: rgba(45, 212, 191, 0.5); transform: translateY(-4px); box-shadow: 0 15px 30px rgba(0, 0, 0, 0.3), 0 0 25px rgba(45, 212, 191, 0.15); }
-        .contact-wrapper:hover::before { transform: translateX(100%); }
-        .contact-wrapper:hover .contact-icon { transform: scale(1.1) rotate(10deg); box-shadow: 0 0 25px rgba(45, 212, 191, 0.6); }
-        .contact-wrapper:hover .contact-email { color: var(--primary); }
+        .eyebrow { display: inline-flex; align-items: center; gap: 10px; margin: 0 0 18px; padding: 6px 14px; border-radius: 999px; background: rgba(139, 92, 246, 0.1); border: 1px solid rgba(139, 92, 246, 0.3); color: var(--secondary-text); font-size: 13px; font-weight: 600; letter-spacing: 0.4px; }
+        .eyebrow .dot { width: 7px; height: 7px; border-radius: 50%; background: var(--primary); box-shadow: 0 0 10px var(--primary); }
+        h1 { font-size: clamp(44px, 7vw, 76px); font-weight: 800; line-height: 1.02; letter-spacing: -2px; margin: 0 0 16px; }
+        .role { margin: 0 0 18px; font-size: clamp(18px, 2.2vw, 22px); font-weight: 600; color: var(--text-main); }
+        .lead { margin: 0 0 34px; max-width: 52ch; font-size: 17px; color: var(--text-muted); text-wrap: pretty; }
+        .actions { display: flex; flex-wrap: wrap; gap: 14px; }
 
-        .branding { margin-top: 50px; position: relative; z-index: 2; display: flex; align-items: center; gap: 8px; opacity: 0; animation: fadeIn 1s ease forwards 1s; }
-        @keyframes fadeIn { to { opacity: 1; } }
-        .branding-text { color: var(--text-muted); font-size: 14px; font-weight: 400; }
-        .branding-logo { background: linear-gradient(135deg, var(--secondary) 0%, var(--primary) 100%); -webkit-background-clip: text; -webkit-text-fill-color: transparent; font-weight: 800; font-size: 16px; letter-spacing: 0.5px; }
+        .btn { display: inline-flex; align-items: center; justify-content: center; gap: 10px; min-height: 50px; padding: 0 24px; border-radius: 14px; font-size: 16px; font-weight: 600; text-decoration: none; transition: transform 0.25s var(--ease-out), box-shadow 0.25s ease, background-color 0.25s ease, border-color 0.25s ease; }
+        .btn svg { width: 18px; height: 18px; flex-shrink: 0; transition: transform 0.25s var(--ease-out); }
+        .btn-primary { background: var(--gradient); color: #fff; box-shadow: 0 10px 24px -8px rgba(45, 212, 191, 0.45); }
+        .btn-primary:hover { transform: translateY(-2px); box-shadow: 0 16px 30px -8px rgba(45, 212, 191, 0.55); }
+        .btn-ghost { background: rgba(255, 255, 255, 0.04); border: 1px solid rgba(255, 255, 255, 0.14); color: var(--text-main); }
+        .btn-ghost:hover { transform: translateY(-2px); border-color: rgba(45, 212, 191, 0.55); background: rgba(45, 212, 191, 0.08); }
+        .btn:hover svg { transform: translateX(3px); }
+        .btn:active { transform: translateY(0); }
 
-        /* Responsive Design */
-        @media (max-width: 850px) {
-            .container { flex-direction: column; padding: 50px 40px; text-align: center; gap: 40px; }
-            .content-section { text-align: center; display: flex; flex-direction: column; align-items: center; }
-            .profile-wrapper { width: 320px; height: 320px; margin: 0 auto; }
-            .profile-img { width: 220px; height: 220px; border-radius: 20px; }
-            h1 { font-size: 38px; }
+        /* Logo with rotating rings */
+        .hero-visual { display: flex; justify-content: center; animation: fadeIn 1s ease 0.2s both; }
+        .profile-wrapper { position: relative; width: min(380px, 100%); aspect-ratio: 1; display: grid; place-items: center; }
+        .ring { position: absolute; border-radius: 50%; pointer-events: none; }
+        .ring-1 { inset: 0; border: 2px dashed rgba(45, 212, 191, 0.4); animation: spin 30s linear infinite; }
+        .ring-2 { inset: -14px; border: 3px solid transparent; border-top-color: rgba(139, 92, 246, 0.6); border-bottom-color: rgba(139, 92, 246, 0.6); animation: spin 18s linear infinite reverse; }
+        .ring-3 { inset: -28px; border: 1px solid rgba(255, 255, 255, 0.06); box-shadow: inset 0 0 30px rgba(45, 212, 191, 0.1); animation: breathe 5s ease-in-out infinite alternate; }
+        .profile-wrapper picture { display: contents; }
+        .profile-wrapper source { display: none; }
+        .profile-img { position: relative; z-index: 1; display: block; width: 70%; height: auto; aspect-ratio: 1; border-radius: 26px; object-fit: cover; background: var(--bg-dark); border: 4px solid rgba(45, 212, 191, 0.25); box-shadow: 0 0 48px rgba(45, 212, 191, 0.3); animation: breathe 5s ease-in-out infinite alternate; }
+        @keyframes spin { to { transform: rotate(360deg); } }
+        @keyframes breathe { from { transform: scale(0.98); opacity: 0.85; } to { transform: scale(1.02); opacity: 1; } }
+        @keyframes fadeIn { from { opacity: 0; } }
+
+        /* Sections */
+        section[id] { scroll-margin-top: 80px; }
+        .section { padding: 96px 0; }
+        .section-head { max-width: 640px; margin-bottom: 44px; }
+        .kicker { margin: 0 0 10px; font-size: 13px; font-weight: 800; letter-spacing: 3px; text-transform: uppercase; color: var(--secondary-text); }
+        h2 { margin: 0 0 14px; font-size: clamp(30px, 4vw, 42px); font-weight: 800; line-height: 1.15; letter-spacing: -1px; text-wrap: balance; }
+        .section-head p { margin: 0; font-size: 17px; color: var(--text-muted); }
+
+        /* Lab tiles */
+        .tiles { display: grid; grid-template-columns: repeat(4, 1fr); gap: 20px; list-style: none; margin: 0; padding: 0; }
+        .tile { position: relative; padding: 28px 24px; border-radius: 22px; background: var(--surface); border: 1px solid var(--surface-line); transition: transform 0.3s var(--ease-out), border-color 0.3s ease, box-shadow 0.3s ease; }
+        .tile:hover { transform: translateY(-4px); border-color: rgba(45, 212, 191, 0.35); box-shadow: 0 20px 40px -20px rgba(0, 0, 0, 0.8), 0 0 30px -10px rgba(45, 212, 191, 0.25); }
+        .tile-icon { width: 48px; height: 48px; display: grid; place-items: center; margin-bottom: 20px; border-radius: 14px; background: rgba(45, 212, 191, 0.1); border: 1px solid rgba(45, 212, 191, 0.25); color: var(--primary); }
+        .tile:nth-child(even) .tile-icon { background: rgba(139, 92, 246, 0.12); border-color: rgba(139, 92, 246, 0.3); color: var(--secondary-text); }
+        .tile-icon svg { width: 24px; height: 24px; }
+        .tile h3 { margin: 0 0 8px; font-size: 18px; font-weight: 800; letter-spacing: -0.2px; }
+        .tile p { margin: 0; font-size: 15px; color: var(--text-muted); }
+
+        /* Contact */
+        .contact-card { position: relative; overflow: hidden; display: grid; grid-template-columns: 1.3fr 1fr; align-items: center; gap: 40px; padding: 56px; border-radius: 30px; background: var(--surface); border: 1px solid var(--surface-line); backdrop-filter: blur(16px); -webkit-backdrop-filter: blur(16px); box-shadow: 0 40px 80px -30px rgba(0, 0, 0, 0.8); }
+        .contact-card::before { content: ''; position: absolute; inset: 0; pointer-events: none; background: radial-gradient(600px circle at 100% 0%, rgba(45, 212, 191, 0.12), transparent 60%); }
+        .contact-card h2 { margin-bottom: 12px; }
+        .contact-card p { margin: 0; color: var(--text-muted); font-size: 17px; }
+        .contact-links { position: relative; display: flex; flex-direction: column; gap: 14px; }
+        .contact-links .btn { justify-content: flex-start; width: 100%; }
+        .contact-links .btn span { overflow-wrap: break-word; min-width: 0; }
+
+        footer { padding: 40px 0 48px; }
+        footer .wrap { display: flex; flex-wrap: wrap; align-items: center; justify-content: space-between; gap: 12px; color: var(--text-muted); font-size: 14px; }
+        footer .gradient-text { font-weight: 800; }
+
+        /* Scroll reveal: hidden only when the script has run, so content stays visible without JS */
+        .js [data-reveal] { opacity: 0; transform: translateY(24px); transition: opacity 0.7s var(--ease-out), transform 0.7s var(--ease-out); transition-delay: var(--delay, 0s); }
+        .js [data-reveal].is-visible { opacity: 1; transform: none; }
+
+        /* Tablet */
+        @media (max-width: 960px) {
+            .hero .wrap { grid-template-columns: 1fr; gap: 48px; text-align: center; }
+            .hero-copy { display: flex; flex-direction: column; align-items: center; }
+            .hero-visual { order: -1; }
+            .profile-wrapper { width: min(280px, calc(100% - 64px)); }
+            .actions { justify-content: center; }
+            .tiles { grid-template-columns: repeat(2, 1fr); }
+            .contact-card { grid-template-columns: 1fr; padding: 40px; }
+        }
+        /* Phone */
+        @media (max-width: 600px) {
+            .wrap { padding: 0 16px; }
+            .nav-links li:not(:last-child) { display: none; }
+            .hero { min-height: 0; padding: 40px 0 64px; }
+            h1 { letter-spacing: -1.5px; }
+            .lead { font-size: 16px; }
+            .actions { flex-direction: column; width: 100%; }
+            .actions .btn { width: 100%; }
+            .section { padding: 64px 0; }
+            .tiles { grid-template-columns: 1fr; gap: 14px; }
+            .tile { padding: 22px 20px; }
+            .contact-card { padding: 32px 20px; border-radius: 24px; }
+            footer .wrap { justify-content: center; text-align: center; }
+        }
+
+        @media (prefers-reduced-motion: reduce) {
+            html { scroll-behavior: auto; }
+            *, *::before, *::after { animation: none !important; transition-duration: 0.01ms !important; transition-delay: 0s !important; }
+            .js [data-reveal] { opacity: 1; transform: none; }
         }
     </style>
+    <script>document.documentElement.classList.add('js');</script>
 </head>
 <body>
-    <!-- Immersive Background -->
-    <div class="bg-image"></div>
-    <div class="bg-overlay"></div>
-    
-    <!-- Floating Orbs -->
-    <div class="orb orb-1"></div>
-    <div class="orb orb-2"></div>
+    <a class="skip-link" href="#main">Skip to content</a>
+    <div class="bg-image" aria-hidden="true"></div>
+    <div class="bg-overlay" aria-hidden="true"></div>
+    <div class="orb orb-1" aria-hidden="true"></div>
+    <div class="orb orb-2" aria-hidden="true"></div>
 
-    <div class="container">
-        <!-- Visual Section: Left side -->
-        <div class="visual-section">
-            <div class="profile-wrapper">
-                <div class="profile-ring"></div>
-                <div class="profile-ring-2"></div>
-                <div class="profile-ring-3"></div>
-                <img src="meoz-lab2.jpg" alt="Meoz Labs Logo" class="profile-img">
-            </div>
-        </div>
-
-        <!-- Content Section: Right side -->
-        <div class="content-section">
-            <h2>Innovation Hub</h2>
-            <h1>Welcome to <br><span class="highlight">Meoz Labs</span></h1>
-            
-            <p>We are a creative technology hub dedicated to crafting innovative digital solutions, exploring bold new ideas, and pushing the boundaries of web development and software engineering.</p>
-            
-            <a href="mailto:nguyendtan2030@gmail.com" class="contact-wrapper">
-                <div class="contact-icon">
-                    <svg viewBox="0 0 24 24">
-                        <path d="M20 4H4C2.9 4 2.01 4.9 2.01 6L2 18C2 19.1 2.9 20 4 20H20C21.1 20 22 19.1 22 18V6C22 4.9 21.1 4 20 4ZM20 18H4V8L12 13L20 8V18ZM12 11L4 6H20L12 11Z"/>
-                    </svg>
-                </div>
-                <div class="contact-text">
-                    <span class="contact-label">Get in touch</span>
-                    <span class="contact-email">nguyendtan2030@gmail.com</span>
-                </div>
+    <header class="nav">
+        <nav class="wrap" aria-label="Main">
+            <a class="brand" href="#top">
+                <img src="/_meoz/favicon-32.png" alt="" width="32" height="32">
+                <span class="gradient-text">MeozLabs</span>
             </a>
-        </div>
-    </div>
+            <ul class="nav-links">
+                <li><a href="#lab">Lab</a></li>
+                <li><a href="https://duytan.meozlabs.com/">About me</a></li>
+                <li><a class="nav-cta" href="#contact">Contact</a></li>
+            </ul>
+        </nav>
+    </header>
 
-    <div class="branding">
-        <span class="branding-text">&copy; 2026</span>
-        <span class="branding-logo">MeozLabs</span>
-    </div>
+    <main id="main">
+        <section class="hero" id="top">
+            <div class="wrap">
+                <div class="hero-copy">
+                    <p class="eyebrow"><span class="dot" aria-hidden="true"></span>The personal lab of Tan Nguyen</p>
+                    <h1><span class="gradient-text">Meoz Labs</span></h1>
+                    <p class="role">Full-Stack &amp; DevOps Engineer &middot; Ho Chi Minh City</p>
+                    <p class="lead">A home-grown lab where I design, build and self-host my own products: from .NET and Angular apps to the servers, pipelines and networks that keep them running.</p>
+                    <div class="actions">
+                        <a class="btn btn-primary" href="#lab">
+                            Explore the lab
+                            <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true" focusable="false"><path d="M12 5v14M5 12l7 7 7-7"/></svg>
+                        </a>
+                        <a class="btn btn-ghost" href="https://duytan.meozlabs.com/">
+                            About me
+                            <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true" focusable="false"><path d="M5 12h14M12 5l7 7-7 7"/></svg>
+                        </a>
+                    </div>
+                </div>
+                <div class="hero-visual">
+                    <div class="profile-wrapper">
+                        <div class="ring ring-1" aria-hidden="true"></div>
+                        <div class="ring ring-2" aria-hidden="true"></div>
+                        <div class="ring ring-3" aria-hidden="true"></div>
+                        <picture>
+                            <source srcset="/_meoz/meoz-lab-560.webp" type="image/webp">
+                            <img src="/_meoz/meoz-lab-560.jpg" alt="Meoz Labs logo" class="profile-img" width="560" height="560" fetchpriority="high" decoding="async">
+                        </picture>
+                    </div>
+                </div>
+            </div>
+        </section>
+
+        <section class="section" id="lab" aria-labelledby="lab-title">
+            <div class="wrap">
+                <div class="section-head" data-reveal>
+                    <p class="kicker">The lab</p>
+                    <h2 id="lab-title">Built, shipped and run <span class="gradient-text">at home</span></h2>
+                    <p>Everything here runs on hardware I own and operate, so every project goes all the way from the first commit to production.</p>
+                </div>
+                <ul class="tiles">
+                    <li class="tile" data-reveal>
+                        <div class="tile-icon" aria-hidden="true">
+                            <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" focusable="false"><rect x="3" y="4" width="18" height="7" rx="2"/><rect x="3" y="13" width="18" height="7" rx="2"/><path d="M7 7.5h.01M7 16.5h.01"/></svg>
+                        </div>
+                        <h3>Self-hosted server</h3>
+                        <p>A home server runs the apps, databases and monitoring behind every project.</p>
+                    </li>
+                    <li class="tile" data-reveal style="--delay: 0.08s">
+                        <div class="tile-icon" aria-hidden="true">
+                            <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" focusable="false"><path d="M21 8 12 3 3 8l9 5 9-5Z"/><path d="m3 13 9 5 9-5"/><path d="m3 18 9 5 9-5" opacity=".5"/></svg>
+                        </div>
+                        <h3>Containers everywhere</h3>
+                        <p>Each service ships as a Docker image behind a reverse proxy with automatic TLS.</p>
+                    </li>
+                    <li class="tile" data-reveal style="--delay: 0.16s">
+                        <div class="tile-icon" aria-hidden="true">
+                            <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" focusable="false"><path d="M17.5 19a4.5 4.5 0 1 0-1.4-8.8A6 6 0 0 0 4.3 12 3.5 3.5 0 0 0 6 19h11.5Z"/></svg>
+                        </div>
+                        <h3>Cloudflare at the edge</h3>
+                        <p>Traffic reaches the lab through Cloudflare for caching, DNS and protection.</p>
+                    </li>
+                    <li class="tile" data-reveal style="--delay: 0.24s">
+                        <div class="tile-icon" aria-hidden="true">
+                            <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" focusable="false"><circle cx="6" cy="6" r="2.5"/><circle cx="18" cy="18" r="2.5"/><path d="M8.5 6H15a3 3 0 0 1 3 3v6.5M6 8.5V18"/></svg>
+                        </div>
+                        <h3>CI/CD to production</h3>
+                        <p>Every merge builds versioned images and deploys them to the lab automatically.</p>
+                    </li>
+                </ul>
+            </div>
+        </section>
+
+        <section class="section" id="contact" aria-labelledby="contact-title">
+            <div class="wrap">
+                <div class="contact-card" data-reveal>
+                    <div>
+                        <p class="kicker">Contact</p>
+                        <h2 id="contact-title">Let's <span class="gradient-text">build something</span></h2>
+                        <p>Have an idea, a project or a question about the lab? I'd be happy to hear from you.</p>
+                    </div>
+                    <div class="contact-links">
+                        <a class="btn btn-primary" href="mailto:nguyendtan2030@gmail.com">
+                            <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true" focusable="false"><rect x="3" y="5" width="18" height="14" rx="2"/><path d="m3 7 9 6 9-6"/></svg>
+                            <span>nguyendtan2030@<wbr>gmail.com</span>
+                        </a>
+                        <a class="btn btn-ghost" href="https://github.com/nguyendtan2030" rel="noopener">
+                            <svg viewBox="0 0 24 24" fill="currentColor" aria-hidden="true" focusable="false"><path d="M12 2a10 10 0 0 0-3.16 19.49c.5.09.68-.22.68-.48v-1.7c-2.78.6-3.37-1.34-3.37-1.34-.45-1.16-1.11-1.47-1.11-1.47-.91-.62.07-.6.07-.6 1 .07 1.53 1.03 1.53 1.03.9 1.52 2.34 1.08 2.91.83.09-.65.35-1.08.63-1.33-2.22-.25-4.55-1.11-4.55-4.94 0-1.09.39-1.98 1.03-2.68-.1-.25-.45-1.27.1-2.65 0 0 .84-.27 2.75 1.02a9.56 9.56 0 0 1 5 0c1.91-1.29 2.75-1.02 2.75-1.02.55 1.38.2 2.4.1 2.65.64.7 1.03 1.59 1.03 2.68 0 3.84-2.34 4.68-4.57 4.93.36.31.68.92.68 1.85v2.74c0 .27.18.58.69.48A10 10 0 0 0 12 2Z"/></svg>
+                            <span>github.com/nguyendtan2030</span>
+                        </a>
+                        <a class="btn btn-ghost" href="https://duytan.meozlabs.com/">
+                            <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true" focusable="false"><circle cx="12" cy="8" r="4"/><path d="M4 21a8 8 0 0 1 16 0"/></svg>
+                            <span>Portfolio &amp; CV</span>
+                        </a>
+                    </div>
+                </div>
+            </div>
+        </section>
+    </main>
+
+    <footer>
+        <div class="wrap">
+            <span>&copy; 2026 <span class="gradient-text">MeozLabs</span></span>
+            <span>Self-hosted with care in Ho Chi Minh City</span>
+        </div>
+    </footer>
+
+    <script>
+        (function () {
+            var items = document.querySelectorAll('[data-reveal]');
+            var reduce = window.matchMedia('(prefers-reduced-motion: reduce)').matches;
+            if (reduce || !('IntersectionObserver' in window)) {
+                items.forEach(function (el) { el.classList.add('is-visible'); });
+                return;
+            }
+            var io = new IntersectionObserver(function (entries) {
+                entries.forEach(function (entry) {
+                    if (entry.isIntersecting) { entry.target.classList.add('is-visible'); io.unobserve(entry.target); }
+                });
+            }, { rootMargin: '0px 0px -10% 0px', threshold: 0.1 });
+            items.forEach(function (el) { io.observe(el); });
+        })();
+    </script>
 </body>
 </html>
