@@ -46,6 +46,14 @@ if [[ "$BODY" == *"Meoz Labs"* ]]; then pass "/ body contains 'Meoz Labs'"; else
 ROOT_BODY="$BODY"
 
 expect_header_contains / content-security-policy "script-src 'self'"
+csp1="$(header content-security-policy)"
+fetch /
+csp2="$(header content-security-policy)"
+nonce1="$(grep -oE "'nonce-[^']+'" <<< "$csp1" || true)"
+nonce2="$(grep -oE "'nonce-[^']+'" <<< "$csp2" || true)"
+if [[ -n "$nonce1" && "$nonce1" != "$nonce2" ]]; then pass "/: CSP nonce is fresh per response"; else fail "/: CSP nonce missing or reused ('$nonce1' / '$nonce2')"; fi
+if [[ "$csp1" =~ script-src[^\;]*unsafe-inline ]]; then fail "/: script-src allows 'unsafe-inline'"; else pass "/: script-src has no 'unsafe-inline'"; fi
+
 expect_header_contains / x-content-type-options nosniff
 expect_header_contains / referrer-policy strict-origin-when-cross-origin
 expect_header_contains / x-frame-options DENY
