@@ -53,6 +53,7 @@ nonce1="$(grep -oE "'nonce-[^']+'" <<< "$csp1" || true)"
 nonce2="$(grep -oE "'nonce-[^']+'" <<< "$csp2" || true)"
 if [[ -n "$nonce1" && "$nonce1" != "$nonce2" ]]; then pass "/: CSP nonce is fresh per response"; else fail "/: CSP nonce missing or reused ('$nonce1' / '$nonce2')"; fi
 nonce_value="${nonce2#\'nonce-}"; nonce_value="${nonce_value%\'}"
+if [[ "$BODY" == *"mailto:"* && "$BODY" != *"email-protection"* ]]; then pass "/: email link not obfuscated by Cloudflare"; else fail "/: email link obfuscated or missing"; fi
 if grep -qE "<script nonce=\"$nonce_value\"[^>]*src=\"main-" <<< "$BODY"; then pass "/: main script carries the header's nonce"; else fail "/: main script lacks the header's nonce"; fi
 if [[ "$csp1" =~ script-src[^\;]*unsafe-inline ]]; then fail "/: script-src allows 'unsafe-inline'"; else pass "/: script-src has no 'unsafe-inline'"; fi
 
