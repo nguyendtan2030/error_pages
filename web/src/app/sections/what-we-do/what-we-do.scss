@@ -1,0 +1,259 @@
+:host {
+  display: block;
+}
+
+/* Process: five numbered steps on one line that draws itself */
+.process {
+  position: relative;
+  margin: 0 0 56px;
+}
+
+.track {
+  position: absolute;
+  top: 21px;
+  left: 10%;
+  right: 10%;
+  height: 2px;
+  border-radius: 2px;
+  background: var(--line);
+}
+
+.track-fill {
+  display: block;
+  width: 100%;
+  height: 100%;
+  border-radius: inherit;
+  background: var(--gradient);
+  transform-origin: left center;
+}
+
+.steps {
+  position: relative;
+  display: grid;
+  grid-template-columns: repeat(5, 1fr);
+  margin: 0;
+  padding: 0;
+  list-style: none;
+}
+
+.step {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: 12px;
+  text-align: center;
+}
+
+.dot {
+  display: grid;
+  place-items: center;
+  width: 44px;
+  height: 44px;
+  border-radius: 50%;
+  border: 1px solid rgba(var(--teal-rgb), 0.45);
+  background: var(--bg-elevated);
+  color: var(--teal);
+  font-family: var(--font-mono);
+  font-size: 0.85rem;
+  box-shadow: 0 0 24px -6px rgba(var(--teal-rgb), 0.5);
+}
+
+.step:nth-child(even) .dot {
+  border-color: rgba(var(--violet-rgb), 0.5);
+  color: var(--violet-text);
+  box-shadow: 0 0 24px -6px rgba(var(--violet-rgb), 0.5);
+}
+
+.step-label {
+  font-family: var(--font-display);
+  font-weight: 700;
+  font-size: 1.05rem;
+}
+
+/* Pillars */
+.pillars {
+  display: grid;
+  grid-template-columns: repeat(4, 1fr);
+  gap: 18px;
+  margin: 0 0 72px;
+  padding: 0;
+  list-style: none;
+}
+
+.pillar {
+  padding: 26px 22px;
+
+  h3 {
+    margin: 0 0 8px;
+    font-size: 1.1rem;
+    letter-spacing: -0.01em;
+  }
+
+  p {
+    margin: 0;
+    color: var(--muted);
+    font-size: 0.95rem;
+  }
+}
+
+.pillar-icon {
+  display: grid;
+  place-items: center;
+  width: 46px;
+  height: 46px;
+  margin-bottom: 18px;
+  border-radius: 14px;
+  border: 1px solid rgba(var(--teal-rgb), 0.28);
+  background: rgba(var(--teal-rgb), 0.1);
+  color: var(--teal);
+
+  svg {
+    width: 22px;
+    height: 22px;
+    fill: none;
+    stroke: currentColor;
+    stroke-width: 1.8;
+    stroke-linecap: round;
+    stroke-linejoin: round;
+  }
+}
+
+.pillar:nth-child(even) .pillar-icon {
+  border-color: rgba(var(--violet-rgb), 0.32);
+  background: rgba(var(--violet-rgb), 0.12);
+  color: var(--violet-text);
+}
+
+/* Built by Meoz Labs */
+.built-by h3 {
+  margin: 0 0 18px;
+  font-family: var(--font-mono);
+  font-size: 0.78rem;
+  font-weight: 500;
+  letter-spacing: 0.16em;
+  text-transform: uppercase;
+  color: var(--muted);
+}
+
+.products {
+  display: grid;
+  grid-template-columns: repeat(2, 1fr);
+  gap: 18px;
+  margin: 0;
+  padding: 0;
+  list-style: none;
+}
+
+.product {
+  display: flex;
+  flex-direction: column;
+  gap: 10px;
+  padding: 24px;
+}
+
+.product-head {
+  display: flex;
+  flex-wrap: wrap;
+  align-items: center;
+  justify-content: space-between;
+  gap: 8px 12px;
+}
+
+.name {
+  font-family: var(--font-display);
+  font-size: 1.25rem;
+  font-weight: 700;
+}
+
+.status {
+  display: inline-flex;
+  align-items: center;
+  gap: 8px;
+  padding: 4px 12px;
+  border-radius: 999px;
+  border: 1px solid var(--line-strong);
+  color: var(--muted);
+  font-family: var(--font-mono);
+  font-size: 0.72rem;
+
+  &.is-live {
+    border-color: rgba(var(--teal-rgb), 0.4);
+    color: var(--teal);
+  }
+}
+
+.status-dot {
+  width: 7px;
+  height: 7px;
+  border-radius: 50%;
+  background: currentColor;
+}
+
+.summary {
+  margin: 0;
+  color: var(--muted);
+}
+
+.visit {
+  display: inline-flex;
+  align-items: center;
+  gap: 6px;
+  align-self: flex-start;
+  min-height: 40px;
+  margin-top: auto;
+  color: var(--teal);
+  font-weight: 600;
+  text-decoration: none;
+
+  svg {
+    width: 16px;
+    height: 16px;
+    fill: none;
+    stroke: currentColor;
+    stroke-width: 2;
+    stroke-linecap: round;
+    transition: transform 0.25s var(--ease-out);
+  }
+
+  &:hover svg {
+    transform: translate(2px, -2px);
+  }
+}
+
+@media (max-width: 960px) {
+  .pillars {
+    grid-template-columns: repeat(2, 1fr);
+  }
+}
+
+// On phones the process runs down a vertical line.
+@media (max-width: 600px) {
+  .track {
+    top: 22px;
+    bottom: 22px;
+    left: 21px;
+    right: auto;
+    width: 2px;
+    height: auto;
+  }
+
+  .track-fill {
+    transform-origin: center top;
+  }
+
+  .steps {
+    grid-template-columns: 1fr;
+    gap: 18px;
+  }
+
+  .step {
+    flex-direction: row;
+    gap: 16px;
+    text-align: left;
+  }
+
+  .pillars,
+  .products {
+    grid-template-columns: 1fr;
+  }
+}

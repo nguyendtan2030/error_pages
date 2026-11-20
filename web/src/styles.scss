@@ -106,9 +106,93 @@
     top: 12px;
   }
 
+  /* Sections shared by What we do and Contact */
+  .section {
+    padding-top: 96px;
+    padding-bottom: 96px;
+    outline: none;
+  }
+
+  .section-head {
+    max-width: 680px;
+    margin-bottom: 48px;
+
+    h2 {
+      margin: 0 0 14px;
+      font-size: clamp(2rem, 4.2vw, 2.9rem);
+      font-weight: 700;
+      line-height: 1.1;
+      letter-spacing: -0.03em;
+      text-wrap: balance;
+    }
+
+    .lead {
+      margin: 0;
+      color: var(--muted);
+      font-size: 1.05rem;
+    }
+  }
+
+  .kicker {
+    margin: 0 0 12px;
+    color: var(--violet-text);
+    font-family: var(--font-mono);
+    font-size: 0.75rem;
+    letter-spacing: 0.18em;
+    text-transform: uppercase;
+  }
+
+  .card {
+    border-radius: var(--radius-lg);
+    border: 1px solid var(--line);
+    background: var(--surface);
+    transition:
+      border-color 0.3s ease,
+      box-shadow 0.3s ease;
+
+    &:hover {
+      border-color: rgba(var(--teal-rgb), 0.35);
+      box-shadow:
+        0 24px 48px -24px rgba(0, 0, 0, 0.8),
+        0 0 32px -12px rgba(var(--teal-rgb), 0.25);
+    }
+  }
+
+  /* Pointer-following glow, positioned by SpotlightDirective */
+  .spotlight {
+    position: relative;
+    isolation: isolate;
+    overflow: hidden;
+
+    &::after {
+      content: '';
+      position: absolute;
+      inset: 0;
+      z-index: -1;
+      border-radius: inherit;
+      background: radial-gradient(
+        420px circle at var(--mx, 50%) var(--my, -200px),
+        rgba(var(--teal-rgb), 0.1),
+        transparent 45%
+      );
+      opacity: 0;
+      transition: opacity 0.4s ease;
+      pointer-events: none;
+    }
+
+    &:hover::after {
+      opacity: 1;
+    }
+  }
+
   @media (max-width: 600px) {
     .wrap {
       padding: 0 16px;
+    }
+
+    .section {
+      padding-top: 64px;
+      padding-bottom: 64px;
     }
   }
 }

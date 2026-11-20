@@ -1,0 +1,69 @@
+<section id="what-we-do" class="section wrap" tabindex="-1" aria-labelledby="what-we-do-title">
+  <div class="section-head" appReveal>
+    <p class="kicker" data-reveal>What we do</p>
+    <h2 id="what-we-do-title" data-reveal>From bold ideas to <span class="gradient-text">products people use</span></h2>
+    <p class="lead" data-reveal>
+      Every product at Meoz Labs starts as an experiment and grows into a solution that runs in production.
+    </p>
+  </div>
+
+  <div class="process">
+    <span class="track" aria-hidden="true"><span class="track-fill"></span></span>
+    <ol class="steps" aria-label="How a product grows at Meoz Labs">
+      @for (step of steps; track step; let i = $index) {
+        <li class="step">
+          <span class="dot" aria-hidden="true">{{ i + 1 }}</span>
+          <span class="step-label">{{ step }}</span>
+        </li>
+      }
+    </ol>
+  </div>
+
+  <ul class="pillars" appReveal>
+    @for (pillar of pillars; track pillar.title) {
+      <li class="pillar card" appSpotlight data-reveal>
+        <span class="pillar-icon" aria-hidden="true">
+          @switch (pillar.icon) {
+            @case ('solutions') {
+              <svg viewBox="0 0 24 24" focusable="false"><rect x="3" y="3" width="7" height="7" rx="1.5" /><rect x="14" y="3" width="7" height="7" rx="1.5" /><rect x="3" y="14" width="7" height="7" rx="1.5" /><path d="M17.5 14v7M14 17.5h7" /></svg>
+            }
+            @case ('ideas') {
+              <svg viewBox="0 0 24 24" focusable="false"><path d="M9 18h6M10 21h4M12 3a6 6 0 0 0-3.5 10.9c.6.4 1 1.1 1 1.8V16h5v-.3c0-.7.4-1.4 1-1.8A6 6 0 0 0 12 3Z" /></svg>
+            }
+            @case ('web') {
+              <svg viewBox="0 0 24 24" focusable="false"><rect x="3" y="4" width="18" height="16" rx="2" /><path d="M3 9h18M7 6.5h.01M10 6.5h.01" /></svg>
+            }
+            @case ('production') {
+              <svg viewBox="0 0 24 24" focusable="false"><path d="M4 15h16M4 9h16" /><rect x="3" y="4" width="18" height="16" rx="2" /><path d="M7 12h.01M7 6.5h.01M7 17.5h.01" /></svg>
+            }
+          }
+        </span>
+        <h3>{{ pillar.title }}</h3>
+        <p>{{ pillar.body }}</p>
+      </li>
+    }
+  </ul>
+
+  <div class="built-by" appReveal>
+    <h3 data-reveal>Built by Meoz Labs</h3>
+    <ul class="products">
+      @for (product of products; track product.name) {
+        <li class="product card" appSpotlight data-reveal>
+          <div class="product-head">
+            <span class="name">{{ product.name }}</span>
+            <span class="status" [class.is-live]="product.status === 'Live'">
+              <span class="status-dot" aria-hidden="true"></span>{{ product.status }}
+            </span>
+          </div>
+          <p class="summary">{{ product.summary }}</p>
+          @if (product.url) {
+            <a class="visit" [href]="product.url" target="_blank" rel="noopener noreferrer">
+              Visit {{ product.name }}
+              <svg viewBox="0 0 24 24" aria-hidden="true" focusable="false"><path d="M7 17 17 7M9 7h8v8" /></svg>
+            </a>
+          }
+        </li>
+      }
+    </ul>
+  </div>
+</section>
