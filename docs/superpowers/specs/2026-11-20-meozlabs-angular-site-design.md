@@ -96,7 +96,8 @@ error_pages/
 
 ### SEO và meta
 - `title`: "Meoz Labs - Innovation & Technology". `description`: "Meoz Labs is a creative technology hub crafting innovative digital solutions, exploring bold new ideas and pushing the boundaries of web development and software engineering."
-- JSON-LD là `Organization` MeozLabs (url `https://www.meozlabs.com/`, logo, `founder` là `Person` Tan Nguyen, `sameAs` portfolio và GitHub), thay cho `WebSite` ở dòng bên dưới. Thêm Open Graph (ảnh `/images/meoz-lab-560.jpg`), `theme-color`, favicon 32px và apple-touch-icon.
+- JSON-LD là `Organization` MeozLabs (url `https://www.meozlabs.com/`, logo, `founder` là `Person` Tan Nguyen, `sameAs` portfolio và GitHub).
+- Thêm Open Graph (ảnh `/images/meoz-lab-560.jpg`), `theme-color`, favicon 32px và apple-touch-icon.
 - Thêm `robots.txt` và `sitemap.xml` có một URL.
 
 ## 5. Container và nginx
