@@ -1,0 +1,132 @@
+@tailwind base;
+@tailwind components;
+@tailwind utilities;
+
+/* ============================================================
+   Design tokens (MeozLabs teal + violet on the portfolio's dark base)
+   ============================================================ */
+:root {
+  --bg: #0d0b13;
+  --bg-elevated: #161320;
+  --surface: rgba(22, 19, 32, 0.72);
+  --surface-2: rgba(255, 255, 255, 0.04);
+  --line: rgba(255, 255, 255, 0.08);
+  --line-strong: rgba(255, 255, 255, 0.14);
+
+  --text: #f8fafc;
+  --muted: #a3b0c2;
+
+  --teal: #2dd4bf;
+  --teal-rgb: 45, 212, 191;
+  --violet: #8b5cf6;
+  --violet-rgb: 139, 92, 246;
+  --violet-text: #a78bfa;
+  --gradient: linear-gradient(135deg, var(--violet) 0%, var(--teal) 100%);
+
+  --font-display: 'Space Grotesk', 'Inter', system-ui, sans-serif;
+  --font-body: 'Inter', system-ui, sans-serif;
+  --font-mono: 'JetBrains Mono', ui-monospace, monospace;
+
+  --radius: 16px;
+  --radius-lg: 24px;
+  --ease-out: cubic-bezier(0.16, 1, 0.3, 1);
+
+  --nav-height: 64px;
+  --content-width: 1120px;
+}
+
+/* ============================================================
+   Base
+   ============================================================ */
+@layer base {
+  *,
+  *::before,
+  *::after {
+    box-sizing: border-box;
+  }
+
+  html {
+    scroll-padding-top: 80px;
+    background: var(--bg);
+  }
+
+  body {
+    margin: 0;
+    background: var(--bg);
+    color: var(--text);
+    font-family: var(--font-body);
+    line-height: 1.6;
+    overflow-x: hidden;
+    -webkit-font-smoothing: antialiased;
+  }
+
+  h1,
+  h2,
+  h3 {
+    font-family: var(--font-display);
+  }
+
+  :focus-visible {
+    outline: 2px solid var(--teal);
+    outline-offset: 3px;
+  }
+}
+
+@layer components {
+  .wrap {
+    width: 100%;
+    max-width: var(--content-width);
+    margin: 0 auto;
+    padding: 0 24px;
+  }
+
+  .gradient-text {
+    background: var(--gradient);
+    -webkit-background-clip: text;
+    background-clip: text;
+    -webkit-text-fill-color: transparent;
+  }
+
+  .skip-link {
+    position: absolute;
+    left: 16px;
+    top: -56px;
+    z-index: 100;
+    padding: 10px 16px;
+    border-radius: 10px;
+    background: var(--teal);
+    color: var(--bg);
+    font-weight: 600;
+    text-decoration: none;
+  }
+
+  .skip-link:focus {
+    top: 12px;
+  }
+
+  @media (max-width: 600px) {
+    .wrap {
+      padding: 0 16px;
+    }
+  }
+}
+
+/* ============================================================
+   Reveal gate. The motion directives animate [data-reveal] and [data-intro]
+   with GSAP. Only browsers that run scripts hide them before that, so the page
+   stays readable with JavaScript off; there is no inline script to mark the
+   page (the CSP forbids it), hence the scripting media query. If GSAP never
+   arrives, the fade-in below shows the content anyway after 3 s.
+   ============================================================ */
+@media (scripting: enabled) and (prefers-reduced-motion: no-preference) {
+  html:not(.motion-ready) :is([data-reveal], [data-intro]) {
+    opacity: 0;
+    animation: reveal-fallback 0.6s ease 3s forwards;
+  }
+}
+
+@keyframes reveal-fallback {
+  to {
+    opacity: 1;
+  }
+}
