@@ -3,12 +3,13 @@ import Lenis from 'lenis';
 import { Backdrop } from './components/backdrop/backdrop';
 import { Navbar } from './components/navbar/navbar';
 import { SiteFooter } from './components/site-footer/site-footer';
+import { Hero } from './sections/hero/hero';
 import { MotionService } from './shared/motion';
 import { SmoothScrollService } from './shared/motion/smooth-scroll.service';
 
 @Component({
   selector: 'app-root',
-  imports: [Backdrop, Navbar, SiteFooter],
+  imports: [Backdrop, Navbar, SiteFooter, Hero],
   templateUrl: './app.html',
   styleUrl: './app.scss',
   changeDetection: ChangeDetectionStrategy.OnPush,

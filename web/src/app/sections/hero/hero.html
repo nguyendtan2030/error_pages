@@ -1,0 +1,73 @@
+<section id="top" class="hero wrap" tabindex="-1">
+  <div class="hero-copy">
+    <p class="badge" data-intro><span class="pulse" aria-hidden="true"></span>Innovation Hub</p>
+
+    <h1 appSplitText data-intro>Welcome to <span class="gradient-text">Meoz Labs</span></h1>
+
+    <p class="lead" data-intro>
+      We are a creative technology hub dedicated to crafting innovative digital solutions, exploring bold new
+      ideas, and pushing the boundaries of web development and software engineering.
+    </p>
+
+    <div class="ctas" data-intro>
+      <a class="btn btn-primary" href="#what-we-do" appMagnetic>
+        Explore what we do
+        <svg viewBox="0 0 24 24" aria-hidden="true" focusable="false"><path d="M12 5v14M5 12l7 7 7-7" /></svg>
+      </a>
+      <a class="btn btn-ghost" href="#contact" appMagnetic>Get in touch</a>
+    </div>
+
+    <a class="founder" href="https://duytan.meozlabs.com/" data-intro>
+      <img src="/images/favicon-32.png" alt="" width="32" height="32" />
+      <span>Founded by <strong>Tan Nguyen</strong>, Full-Stack &amp; DevOps Engineer</span>
+      <svg viewBox="0 0 24 24" aria-hidden="true" focusable="false"><path d="M5 12h14M12 5l7 7-7 7" /></svg>
+    </a>
+  </div>
+
+  <div class="hero-visual">
+    <div class="logo-wrap">
+      <div class="ring ring-1" aria-hidden="true"></div>
+      <div class="ring ring-2" aria-hidden="true"></div>
+      <picture>
+        <source type="image/webp" srcset="/images/meoz-lab-560.webp" />
+        <img
+          class="logo"
+          src="/images/meoz-lab-560.jpg"
+          alt="Meoz Labs logo"
+          width="560"
+          height="560"
+          fetchpriority="high"
+          decoding="async"
+        />
+      </picture>
+
+      <div class="orbit" aria-hidden="true">
+        @for (item of orbit; track item.label; let i = $index) {
+          <span class="orbit-slot" [style.--angle]="i * (360 / orbit.length) + 45 + 'deg'">
+            <span class="orbit-counter">
+              <span class="orbit-badge">
+                <span class="icon">
+                  @switch (item.icon) {
+                    @case ('web') {
+                      <svg viewBox="0 0 24 24" focusable="false"><circle cx="12" cy="12" r="9" /><path d="M3 12h18M12 3a14 14 0 0 1 0 18M12 3a14 14 0 0 0 0 18" /></svg>
+                    }
+                    @case ('software') {
+                      <svg viewBox="0 0 24 24" focusable="false"><path d="m8 7-5 5 5 5M16 7l5 5-5 5M14 4l-4 16" /></svg>
+                    }
+                    @case ('solutions') {
+                      <svg viewBox="0 0 24 24" focusable="false"><rect x="3" y="3" width="7" height="7" rx="1.5" /><rect x="14" y="3" width="7" height="7" rx="1.5" /><rect x="3" y="14" width="7" height="7" rx="1.5" /><path d="M17.5 14v7M14 17.5h7" /></svg>
+                    }
+                    @case ('ideas') {
+                      <svg viewBox="0 0 24 24" focusable="false"><path d="M9 18h6M10 21h4M12 3a6 6 0 0 0-3.5 10.9c.6.4 1 1.1 1 1.8V16h5v-.3c0-.7.4-1.4 1-1.8A6 6 0 0 0 12 3Z" /></svg>
+                    }
+                  }
+                </span>
+                <span class="label">{{ item.label }}</span>
+              </span>
+            </span>
+          </span>
+        }
+      </div>
+    </div>
+  </div>
+</section>
