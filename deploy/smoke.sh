@@ -45,13 +45,15 @@ expect_header_contains / cache-control no-cache
 if [[ "$BODY" == *"Meoz Labs"* ]]; then pass "/ body contains 'Meoz Labs'"; else fail "/ body lacks 'Meoz Labs'"; fi
 ROOT_BODY="$BODY"
 
-expect_header_contains / content-security-policy "script-src 'self'"
+expect_header_contains / content-security-policy "'strict-dynamic' 'self'; style-src"
 csp1="$(header content-security-policy)"
 fetch /
 csp2="$(header content-security-policy)"
 nonce1="$(grep -oE "'nonce-[^']+'" <<< "$csp1" || true)"
 nonce2="$(grep -oE "'nonce-[^']+'" <<< "$csp2" || true)"
 if [[ -n "$nonce1" && "$nonce1" != "$nonce2" ]]; then pass "/: CSP nonce is fresh per response"; else fail "/: CSP nonce missing or reused ('$nonce1' / '$nonce2')"; fi
+nonce_value="${nonce2#\'nonce-}"; nonce_value="${nonce_value%\'}"
+if grep -qE "<script nonce=\"$nonce_value\"[^>]*src=\"main-" <<< "$BODY"; then pass "/: main script carries the header's nonce"; else fail "/: main script lacks the header's nonce"; fi
 if [[ "$csp1" =~ script-src[^\;]*unsafe-inline ]]; then fail "/: script-src allows 'unsafe-inline'"; else pass "/: script-src has no 'unsafe-inline'"; fi
 
 expect_header_contains / x-content-type-options nosniff
