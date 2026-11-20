@@ -10,79 +10,29 @@
     <link rel="apple-touch-icon" href="/_meoz/apple-touch-icon.png">
     <link rel="preconnect" href="https://fonts.googleapis.com">
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;600;800&display=swap" rel="stylesheet">
-    <style>
-        :root { --bg-dark: #1a1625; --bg-page: #0d0b13; --primary: #2dd4bf; --secondary: #8b5cf6; --text-main: #f8fafc; --text-muted: #a3b0c2; --ease-out: cubic-bezier(0.16, 1, 0.3, 1); }
-        *, *::before, *::after { box-sizing: border-box; }
-
-        body { margin: 0; padding: 32px 16px; font-family: 'Inter', system-ui, -apple-system, 'Segoe UI', sans-serif; background-color: var(--bg-page); color: var(--text-main); min-height: 100vh; min-height: 100dvh; display: flex; flex-direction: column; align-items: center; justify-content: center; overflow-x: hidden; position: relative; -webkit-font-smoothing: antialiased; }
-
-        .bg-image { position: fixed; inset: -24px; background: url('/_meoz/meoz-lab-bg.webp') center/cover no-repeat; opacity: 0.14; filter: blur(12px); z-index: 0; pointer-events: none; }
-        .bg-overlay { position: fixed; inset: 0; background: radial-gradient(circle at 50% 50%, rgba(26, 22, 37, 0.3) 0%, var(--bg-dark) 100%); z-index: 0; pointer-events: none; }
-
-        .orb { position: fixed; border-radius: 50%; z-index: 1; pointer-events: none; will-change: transform; animation: float 14s ease-in-out infinite alternate; }
-        .orb-1 { width: 560px; height: 560px; top: -220px; left: -220px; background: radial-gradient(circle, rgba(45, 212, 191, 0.16) 0%, rgba(45, 212, 191, 0) 65%); }
-        .orb-2 { width: 680px; height: 680px; bottom: -280px; right: -280px; background: radial-gradient(circle, rgba(139, 92, 246, 0.14) 0%, rgba(139, 92, 246, 0) 65%); animation-delay: -7s; }
-        @keyframes float { to { transform: translate3d(50px, 50px, 0) scale(1.08); } }
-
-        .container { position: relative; z-index: 2; width: 100%; max-width: 480px; background: rgba(34, 31, 48, 0.72); backdrop-filter: blur(16px); -webkit-backdrop-filter: blur(16px); border: 1px solid rgba(255, 255, 255, 0.08); border-radius: 30px; padding: 48px 40px; text-align: center; box-shadow: 0 30px 60px -15px rgba(0, 0, 0, 0.7); animation: slideUp 0.8s var(--ease-out) both; }
-        @keyframes slideUp { from { opacity: 0; transform: translateY(32px); } }
-
-        /* Core with rings */
-        .core-wrapper { position: relative; width: 220px; height: 220px; margin: 0 auto 32px; display: grid; place-items: center; }
-        .core-ring { position: absolute; border-radius: 50%; pointer-events: none; }
-        .core-ring-1 { inset: 0; border: 2px dashed rgba(45, 212, 191, 0.6); animation: spin 12s linear infinite; }
-        .core-ring-2 { inset: 15px; border: 3px solid rgba(139, 92, 246, 0.8); border-top-color: transparent; border-bottom-color: transparent; animation: spin 6s linear infinite reverse; }
-        .core-ring-3 { inset: 25px; border: 2px solid rgba(45, 212, 191, 0.5); box-shadow: 0 0 20px rgba(45, 212, 191, 0.5), inset 0 0 15px rgba(45, 212, 191, 0.4); animation: pulse-ring 2s ease-in-out infinite alternate; }
-        .core-wrapper picture { display: contents; }
-        .core-wrapper source { display: none; }
-        .core-image { position: relative; z-index: 1; display: block; width: 150px; height: 150px; border-radius: 50%; object-fit: cover; background: var(--bg-dark); border: 3px solid rgba(255, 255, 255, 0.1); box-shadow: 0 0 25px rgba(45, 212, 191, 0.3); }
-
-        @keyframes spin { to { transform: rotate(360deg); } }
-        @keyframes pulse-ring { to { transform: scale(1.08); } }
-
-        h1 { font-size: 28px; font-weight: 800; margin: 0 0 14px; background: linear-gradient(135deg, #fff 0%, #a5b4fc 100%); -webkit-background-clip: text; background-clip: text; -webkit-text-fill-color: transparent; letter-spacing: -0.5px; }
-        p { font-size: 15px; line-height: 1.65; color: var(--text-muted); margin: 0 0 30px; }
-        strong { color: var(--text-main); font-weight: 600; }
-
-        .status-badge { display: inline-flex; align-items: center; gap: 10px; background: rgba(255, 255, 255, 0.05); padding: 10px 20px; border-radius: 20px; font-size: 14px; font-weight: 600; color: var(--primary); border: 1px solid rgba(45, 212, 191, 0.2); box-shadow: 0 5px 15px rgba(0, 0, 0, 0.2); }
-        .dot { width: 8px; height: 8px; background-color: var(--primary); border-radius: 50%; box-shadow: 0 0 10px var(--primary); animation: blink 1.6s ease-in-out infinite; }
-        @keyframes blink { 50% { opacity: 0.3; } }
-
-        .branding { margin-top: 32px; position: relative; z-index: 2; display: flex; align-items: center; gap: 8px; animation: fadeIn 0.8s ease 0.5s both; }
-        @keyframes fadeIn { from { opacity: 0; } }
-        .branding-text { color: var(--text-muted); font-size: 13px; }
-        .branding-logo { background: linear-gradient(135deg, var(--secondary) 0%, var(--primary) 100%); -webkit-background-clip: text; background-clip: text; -webkit-text-fill-color: transparent; font-weight: 800; font-size: 15px; letter-spacing: 0.5px; }
-
-        @media (max-width: 480px) {
-            .container { padding: 40px 20px 32px; border-radius: 24px; }
-            h1 { font-size: 24px; }
-        }
-
-        @media (prefers-reduced-motion: reduce) {
-            *, *::before, *::after { animation: none !important; transition-duration: 0.01ms !important; }
-        }
-    </style>
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;600&family=JetBrains+Mono:wght@500&family=Space+Grotesk:wght@700&display=swap" rel="stylesheet">
+    <link href="/_meoz/error.css?v=2" rel="stylesheet">
 </head>
-<body>
+<body class="is-50x">
     <div class="bg-image" aria-hidden="true"></div>
     <div class="bg-overlay" aria-hidden="true"></div>
     <div class="orb orb-1" aria-hidden="true"></div>
     <div class="orb orb-2" aria-hidden="true"></div>
 
-    <main class="container">
-        <div class="core-wrapper" aria-hidden="true">
-            <div class="core-ring core-ring-1"></div>
-            <div class="core-ring core-ring-2"></div>
-            <div class="core-ring core-ring-3"></div>
+    <main class="card">
+        <div class="emblem" aria-hidden="true">
+            <div class="ring ring-2"></div>
+            <div class="ring ring-1"></div>
+            <div class="pulse-ring"></div>
             <picture>
                 <source srcset="/_meoz/meoz-lab-radar-300.webp" type="image/webp">
-                <img src="/_meoz/meoz-lab-radar-300.jpg" alt="" class="core-image" width="300" height="300" decoding="async">
+                <img src="/_meoz/meoz-lab-radar-300.jpg" alt="" width="300" height="300" decoding="async">
             </picture>
         </div>
+        <p class="kicker">Scheduled maintenance</p>
         <h1>System Upgrading</h1>
-        <p>The <strong>MeozLabs Infrastructure</strong> is currently undergoing scheduled maintenance and upgrades. All services will be back online shortly. Thank you for your patience!</p>
-        <div class="status-badge" role="status">
+        <p class="message">The <strong>MeozLabs Infrastructure</strong> is currently undergoing scheduled maintenance and upgrades. All services will be back online shortly. Thank you for your patience!</p>
+        <div class="status" role="status">
             <span class="dot" aria-hidden="true"></span>
             Maintenance in progress
         </div>
